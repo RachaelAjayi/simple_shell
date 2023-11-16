@@ -21,8 +21,6 @@ int main(int arg_count, char **argv)
 		line = my_getline();
 		if (line == NULL)
 		{
-			if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "\n", 1);
 			return (state);
 		}
 
