@@ -13,7 +13,7 @@ char *my_getline(void)
 
 	size_t len = 0;
 
-	if(isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO))
 	write(STDOUT_FILENO, "$", 2);
 
 	getline_value = getline(&line, &len, stdin);
