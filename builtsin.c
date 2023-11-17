@@ -12,9 +12,9 @@ void builtsin(char **cmd_args, char *getline_val);
 
 void builtsin(char **cmd_args, char *getline_val)
 {
-	char executable_file[MAX_INPUT_SIZE];
+	char execfile[MAX_INPUT_SIZE];
 
-	char *file_path = "/bin/";
+	char *path = "/bin/";
 
 	if (strcmp(cmd_args[0], "exit") == 0)
 	{
@@ -22,7 +22,7 @@ void builtsin(char **cmd_args, char *getline_val)
 		{
 			char *endptr;
 
-			long status = strtol(cmd_args[1], &endptr, 10);
+			long state = strtol(cmd_args[1], &endptr, 10);
 
 			if (strcmp(cmd_args[1], "-98") == 0)
 			{
@@ -44,7 +44,7 @@ void builtsin(char **cmd_args, char *getline_val)
 			{
 				free(getline_val);
 				free(cmd_args);
-				exit(status);
+				exit(state);
 			}
 			else
 			{
@@ -84,19 +84,16 @@ void builtsin(char **cmd_args, char *getline_val)
 	}
 	else if (strcmp(cmd_args[0], "unsetenv") == 0)
 	{
-		/*Logic to be implemented*/
 	}
 	else if (strcmp(cmd_args[0], "cd") == 0)
 	{
-		/*Logic to be implemented*/
 	}
 	else if (strcmp(cmd_args[0], "#") == 0)
 	{
-		/* This is a comment, do nothing*/
 	}
 	else
 	{
-		if (strchr(cmd_args[0], '/') != NULL) /*USer entered full path*/
+		if (strchr(cmd_args[0], '/') != NULL)
 		{
 			if (access(cmd_args[0], X_OK) != -1)
 			{
@@ -114,12 +111,12 @@ void builtsin(char **cmd_args, char *getline_val)
 				exit(127);
 			}
 		}
-		else /*User entered the file name*/
+		else
 		{
-			strcpy(executable_file, file_path);
-			strcat(executable_file, cmd_args[0]);
+			strcpy(execfile, path);
+			strcat(execfile, cmd_args[0]);
 
-			if (access(executable_file, X_OK) != -1)
+			if (access(execfile, X_OK) != -1)
 			{
 				exec(cmd_args, getline_val);
 			}
