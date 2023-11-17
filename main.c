@@ -2,34 +2,109 @@
 
 /**
  * main - this is the main function for my shell program.
- * @argv: arguments of the function
- * @arg_count: counts of arguments
- * Return: 0 Always (Sucess).
+ * Return: 0 on sucess.
  */
 
-int main(int arg_count, char **argv)
+int main(void);
+
+int main(void)
 {
-	char *line = NULL, *command = NULL;
-	int  state = 0;
-	(void) arg_count;
-	(void) argv;
+	bool interactive_shell;
+
+	char *getline_val;
+
+	char **cmd_args;
+
+	char *token;
+
+	int arg_idx;
+
+	char *usr_prmpt = "(Rachael Ajayi)$ ";
+
+	interactive_shell = isatty(fileno(stdin));
 
 
 	while (1)
 	{
-		line = my_getline();
-		if (line == NULL)
+
+		/*check for interactive shell mode*/
+		if (interactive_shell)
 		{
-			if (isatty(STDIN_FILENO))
-				write(STDOUT_FILENO, "\n", 1);
-			return (state);
+			_printfh("%s", usr_prmpt);
+
+			fflush(stdout);
+
+			getline_val = my_getline();
+
+			if (getline_val == NULL)
+			{
+				break; /*Exit interactive mode*/
+			}
+
+		}
+		else /* shell is in non-interactive mode*/
+		{
+			getline_val = nint_getline();
+
+			if (getline_val == NULL) /*Exit non-interactive mode*/
+			{
+				/*Close file and exit the non-interacitve mode*/
+
+				break; /*Switche to interactive shell mode*/
+			}
 		}
 
-		printf("%s\n", line);
-		free(line);
-		command = tokenizer(line);
-		/*
-		* state = _execute(command, argv);
-		*/
+		/*Check if multiple commands were enetered*/
+		if (strstr(getline_val, ";") != NULL)
+		{
+			/*			cmd_seperator(get_line_val, currt_wrk_dir, usr_prmpt);*/
+
+			free(getline_val);
+			continue;
+		}
+		/*Dynamically Allocate memory for the arguments to be executed*/
+		cmd_args = malloc(sizeof(char *) * (MAX_ARGS + 1));
+
+		if (cmd_args == NULL)
+		{
+			perror("Failed to Allocate Memory");
+			exit(EXIT_FAILURE);
+		}
+
+
+		arg_idx = 0;
+
+		token = my_strtok(getline_val, " \t\r\n\a");
+
+		while (token != NULL && arg_idx < MAX_ARGS)
+		{
+			cmd_args[arg_idx] = token;
+
+			arg_idx++;
+
+			token = my_strtok(NULL, " \t\r\n\a");
+		}
+
+		cmd_args[arg_idx] = NULL;
+
+		if (arg_idx == 0)
+		{
+			free(getline_val);
+			free(cmd_args);
+
+			continue;
+		}
+
+		builtsin(cmd_args, getline_val);
+
+		free(getline_val);
+		free(cmd_args);
+
+		if (!interactive_shell)
+		{
+			break;
+		}
 	}
+
+	return (0);
 }
