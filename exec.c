@@ -28,10 +28,8 @@ void exec(char *args[], char *getline_val)
 
 	if (value_child == 0)
 	{
-		/* Condition checks if user entered the full path */
 		if (strchr(args[0], '/') != NULL)
 		{
-			/* Validate the command received before executing */
 			if (execve(args[0], args, environ) == -1)
 			{
 				perror("Error from execve");

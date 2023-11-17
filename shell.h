@@ -27,7 +27,7 @@ char *_getenv(char *env_name);
 char *nint_getline(void);
 
 int my_strcmp (char *str1, char *str2, int num);
-int printfd(FILE *stream, const char *format, ...);
+int printfd(FILE *fd, const char *format, ...);
 int _printfh(const char *format, ...);
 int _strlen(char *s);
 int _putchar(char c);

@@ -71,7 +71,7 @@ int _printfh(const char *format, ...)
 				print_chars += str_len;
 			}
 		}
-		else /*No format specifier was found*/
+		else
 		{
 			_putchar(format[fmt_index]);
 			print_chars += 1;
