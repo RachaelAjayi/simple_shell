@@ -9,8 +9,7 @@
 
 int main(int arg_count, char **argv)
 {
-	char *line = NULL;
-	/*char **command = NULL;*/
+	char *line = NULL, *command = NULL;
 	int  state = 0;
 	(void) arg_count;
 	(void) argv;
@@ -21,14 +20,15 @@ int main(int arg_count, char **argv)
 		line = my_getline();
 		if (line == NULL)
 		{
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
 			return (state);
 		}
 
 		printf("%s\n", line);
 		free(line);
-		/**
-		 * command = tokenizer(line);
-
+		command = tokenizer(line);
+		/*
 		* state = _execute(command, argv);
 		*/
 	}
