@@ -1,4 +1,5 @@
 #ifndef SHELL_H
+<<<<<<< HEAD
 # define SHELL_H
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,5 +48,30 @@ static int	ft_count_words(char const *str, char charset)
 static int	ft_word_len(char const *str, char charset)
 static char	*ft_word_grep(char const *str, char charset)
 char	**split(char const *s, char c)
+=======
+#define SHELL_H
+
+#include <stdio.h>
+
+#include <stdarg.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+
+char *my_getline(void);
+
+char *_strdup(const char *str);
+int _strcmp(char *s1, char *s2);
+int _strlen(char *s);
+char *_strcat(char *dest, char *src);
+char *_strcpy(char *dest, char *src);
+
+
+>>>>>>> 46fe6cef6e2686bd67d07337589dd7075d2394aa
 
 #endif
