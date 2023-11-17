@@ -54,7 +54,7 @@ void pr_int(int value)
 
 
 /**
-* int_len - function calculates length of an integer
+*_int_len - function calculates length of an integer
 * @integer: the integer.
 * Return: length of the integer
 */
