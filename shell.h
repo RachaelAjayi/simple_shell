@@ -20,8 +20,6 @@ extern char **environ;
 
 void builtsin(char **cmd_args, char *getline_val);
 void exec(char *args[], char *getline_val);
-void setenv_builtin(char **cmd_args);
-void unset_builtin(char **cmd_args);
 
 
 char *my_getline(void);
