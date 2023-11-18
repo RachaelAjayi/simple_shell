@@ -45,15 +45,15 @@ void exec(char *args[], char *getline_val)
 
 			while (token != NULL)
 			{
-				char executable_file[MAX_INPUT_SIZE];
+				char execfile[MAX_INPUT_SIZE];
 
-				strcpy(executable_file, token);
-				strcat(executable_file, "/");
-				strcat(executable_file, args[0]);
+				strcpy(execfile, token);
+				strcat(execfile, "/");
+				strcat(execfile, args[0]);
 
-				if (access(executable_file, X_OK) != -1)
+				if (access(execfile, X_OK) != -1)
 				{
-					execve(executable_file, args, environ);
+					execve(execfile, args, environ);
 				}
 
 				token = my_strtok(NULL, ":");

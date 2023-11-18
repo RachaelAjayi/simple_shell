@@ -27,7 +27,6 @@ int main(void)
 	while (1)
 	{
 
-		/*check for interactive shell mode*/
 		if (interactive_shell)
 		{
 			_printfh("%s", usr_prmpt);
@@ -38,31 +37,27 @@ int main(void)
 
 			if (getline_val == NULL)
 			{
-				break; /*Exit interactive mode*/
+				break;
 			}
 
 		}
-		else /* shell is in non-interactive mode*/
+		else
 		{
 			getline_val = nint_getline();
 
-			if (getline_val == NULL) /*Exit non-interactive mode*/
+			if (getline_val == NULL)
 			{
-				/*Close file and exit the non-interacitve mode*/
 
-				break; /*Switche to interactive shell mode*/
+				break;
 			}
 		}
 
-		/*Check if multiple commands were enetered*/
 		if (strstr(getline_val, ";") != NULL)
 		{
-			/*			cmd_seperator(get_line_val, currt_wrk_dir, usr_prmpt);*/
 
 			free(getline_val);
 			continue;
 		}
-		/*Dynamically Allocate memory for the arguments to be executed*/
 		cmd_args = malloc(sizeof(char *) * (MAX_ARGS + 1));
 
 		if (cmd_args == NULL)

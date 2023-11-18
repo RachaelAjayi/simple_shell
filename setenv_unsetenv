@@ -1,0 +1,66 @@
+#include "shell.h"
+
+/**
+ * setenv_builtin - Implementation of the setenv builtin command.
+ * @cmd_args: Array of command arguments.
+ * @getline_val: The original input line
+ */
+void setenv_builtin(char **cmd_args, char *getline_val)
+{
+	if (cmd_args[1] == NULL || cmd_args[2] == NULL || cmd_args[3] != NULL)
+	{
+		printfd(stderr, "Usage: setenv VARIABLE VALUE\n");
+		return;
+	}
+
+	if (setenv(cmd_args[1], cmd_args[2], 1) != 0)
+	{
+		perror("setenv failed");
+		return;
+	}
+}
+
+/**
+ * unset_builtin - Implementation of the unsetenv builtin command.
+ * @cmd_args: Array of command arguments.
+ */
+void unset_builtin(char **cmd_args)
+{
+	if (cmd_args[1] == NULL || cmd_args[2] != NULL)
+	{
+		printfd(stderr, "Usage: unsetenv VARIABLE\n");
+		return;
+	}
+
+	if (unsetenv(cmd_args[1]) != 0)
+	{
+		perror("unsetenv failed");
+		return;
+	}
+}
+
+/**
+ * builtsin - This function handles every logic.
+ * It checks for builtin commands and calls the appropriate function.
+ * @cmd_args: Command arguments to be checked.
+ * @getline_val: this is the getline value argument to be     freed.
+ */
+void builtsin(char **cmd_args, char *getline_val)
+{
+
+	char *builtin_commands[] = {"setenv", "unsetenv"};
+
+	void (*builtin_func[])(char **, char *) = {&setenv_builtin, &unset_builtin};
+
+	size_t i;
+
+	for (i = 0; i < sizeof(builtin_commands) / sizeof(char *); i++)
+	{
+		if (strcmp(cmd_args[0], builtin_commands[i]) == 0)
+		{
+			builtin_func[i](cmd_args);
+			return;
+		}
+	}
+
+}
